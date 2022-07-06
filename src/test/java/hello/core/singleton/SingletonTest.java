@@ -30,4 +30,16 @@ public class SingletonTest {
         //웹 어플리케이션의 특성상 고객의 요청이 계속 온다.
         //그떄마다 객체가 계속 생성된다면 효율적이지 않다.
     }
+
+    @Test
+    @DisplayName("싱글톤 패턴을 적용한 객체 사용")
+    void singletonServiceTest(){
+        SingletonService singletonService1 = SingletonService.getInstance();
+        SingletonService singletonService2 = SingletonService.getInstance();
+
+        System.out.println("singletonService1 = " + singletonService1);
+        System.out.println("singletonService2 = " + singletonService2);
+
+        assertThat(singletonService1).isSameAs(singletonService2);
+    }
 }
