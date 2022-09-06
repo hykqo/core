@@ -1,7 +1,11 @@
 package hello.core;
 
+import hello.core.discount.DiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderSerivceImpl;
+import hello.core.order.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,4 +22,12 @@ import org.springframework.context.annotation.FilterType;
         //만약 지정하지 않는다면, @ComponentScan이 붙은 클래스의 패키지가 시작위치가 된다.
 )
 public class AutoAppConfig {
+
+    @Autowired MemberRepository memberRepository;
+    @Autowired DiscountPolicy discountPolicy;
+
+    @Bean
+    OrderService orderService(){
+        return new OrderSerivceImpl(memberRepository, discountPolicy);
+    }
 }
