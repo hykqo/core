@@ -1,12 +1,15 @@
 package hello.core.scope;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SingletonWithPrototypeTest1 {
@@ -36,16 +39,12 @@ public class SingletonWithPrototypeTest1 {
 
     @Scope
     static class ClientBean{
+
         @Autowired
-        private ApplicationContext ac;
-//        private final PrototypeBean prototypeBean; //생성시점에 주입.
-//
-//        public ClientBean(PrototypeBean prototypeBean){
-//            this.prototypeBean = prototypeBean;®
-//        }
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
         public int logic(){
-            PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);
+            PrototypeBean prototypeBean = prototypeBeanProvider.get(); //get호출 시점에 해당 빈을 찾아준다.
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
