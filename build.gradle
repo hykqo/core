@@ -28,6 +28,9 @@ dependencies {
 	//프로토타입빈 호출을 위한 Provider 라이브러리
 	implementation 'javax.inject:javax.inject:1'
 
+	//web 환경 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	//lombok 라이브러리 추가 시작
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
