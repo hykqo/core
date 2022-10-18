@@ -15,14 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+    private final MyLogger myLogger;
 
     @SneakyThrows
     @RequestMapping("log-demo")
     @ResponseBody //뷰 화면이 없이 문자를 반환하기 위해 해당 어노테이션 사용
     public String logDemo(HttpServletRequest request){
         String requestURL = request.getRequestURL().toString();
-        MyLogger myLogger = myLoggerProvider.getObject(); //이시점에 만들어짐
+
+        System.out.println("myLogger = " + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
         myLogger.log("controller test");
         Thread.sleep(1000);
